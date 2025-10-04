@@ -359,7 +359,127 @@
                     </div>
                 </div>
             </div>
+        </div><!-- ========================================== -->
+<!-- 1. INTERACTIVE CODE PLAYGROUND SECTION -->
+<!-- Place this after the Git/GitHub section -->
+<!-- ========================================== -->
+<section class="py-16 bg-white dark:bg-gray-800">
+    <div class="container mx-auto px-6">
+        <div class="section">
+            <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Try Git Commands</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-900 rounded-lg p-6 shadow-2xl">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span class="text-gray-400 text-sm ml-2">terminal</span>
+                    </div>
+                    <div id="terminalOutput" class="font-mono text-sm text-green-400 mb-4 h-48 overflow-y-auto">
+                        <p>Welcome to Git Command Simulator! 💻</p>
+                        <p>Try typing: git init, git status, git add ., git commit</p>
+                        <p class="mt-2">$</p>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-green-400 mr-2">$</span>
+                        <input 
+                            type="text" 
+                            id="terminalInput" 
+                            class="flex-1 bg-transparent text-green-400 outline-none font-mono"
+                            placeholder="Type a git command..."
+                            autocomplete="off"
+                        >
+                    </div>
+                </div>
+                <div class="mt-6 bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+                    <p class="text-sm text-gray-700 dark:text-gray-300">
+                        <strong>Try these commands:</strong> git init, git status, git add ., git commit, git push, help
+                    </p>
+                </div>
+            </div>
         </div>
+    </div>
+</section>
+
+<!-- JavaScript for Terminal Simulator -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalOutput = document.getElementById('terminalOutput');
+        
+        if (!terminalInput || !terminalOutput) return;
+        
+        let gitInitialized = false;
+        let stagedFiles = false;
+        let committed = false;
+        
+        const commands = {
+            'git init': () => {
+                gitInitialized = true;
+                return 'Initialized empty Git repository in /devx-club/.git/';
+            },
+            'git status': () => {
+                if (!gitInitialized) return 'fatal: not a git repository';
+                if (committed) return 'nothing to commit, working tree clean';
+                if (stagedFiles) return 'Changes to be committed:\n  modified: index.html';
+                return 'Untracked files:\n  index.html\n  script.js';
+            },
+            'git add .': () => {
+                if (!gitInitialized) return 'fatal: not a git repository';
+                stagedFiles = true;
+                return 'Files staged successfully!';
+            },
+            'git commit': () => {
+                if (!gitInitialized) return 'fatal: not a git repository';
+                if (!stagedFiles) return 'nothing to commit';
+                committed = true;
+                return '[main f7a8b9c] Initial commit\n 2 files changed, 150 insertions(+)';
+            },
+            'git push': () => {
+                if (!committed) return 'error: no commits to push';
+                return 'Enumerating objects: 3, done.\nWriting objects: 100%\nTo github.com/devx-club/website.git';
+            },
+            'help': () => {
+                return 'Available commands:\n- git init\n- git status\n- git add .\n- git commit\n- git push\n- clear';
+            },
+            'clear': () => {
+                terminalOutput.innerHTML = '<p>$</p>';
+                return '';
+            }
+        };
+        
+        terminalInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = terminalInput.value.trim();
+                const output = commands[command] || commands[command.toLowerCase()] || `command not found: ${command}`;
+                
+                const newLine = document.createElement('p');
+                newLine.textContent = `$ ${command}`;
+                newLine.className = 'text-white';
+                terminalOutput.appendChild(newLine);
+                
+                if (typeof output === 'function') {
+                    const result = output();
+                    if (result) {
+                        const resultLine = document.createElement('p');
+                        resultLine.innerHTML = result.replace(/\n/g, '<br>');
+                        resultLine.className = 'text-green-400 mb-2';
+                        terminalOutput.appendChild(resultLine);
+                    }
+                } else {
+                    const resultLine = document.createElement('p');
+                    resultLine.innerHTML = output.replace(/\n/g, '<br>');
+                    resultLine.className = 'text-green-400 mb-2';
+                    terminalOutput.appendChild(resultLine);
+                }
+                
+                terminalInput.value = '';
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+    });
+</script>
+
     </section>
 
     <!-- Requirements & Modeling -->
