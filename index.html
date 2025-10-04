@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevX Club - Exploring Software Engineering Together</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .command-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+        }
+        
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #3730a3 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">DevX</span>
+                    <span class="text-xl text-gray-700 dark:text-gray-300">Club</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span id="welcomeText" class="text-sm text-gray-600 dark:text-gray-400"></span>
+                    <button id="themeToggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">
+                        <svg id="sunIcon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"/>
+                        </svg>
+                        <svg id="moonIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient text-white py-20">
+        <div class="container mx-auto px-6 text-center section">
+            <h1 class="text-5xl font-bold mb-4">Welcome to DevX Club</h1>
+            <p class="text-xl mb-8">Exploring Software Engineering Together 🚀</p>
+            <button id="nameModalBtn" class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transform hover:scale-105">
+                Get Started
+            </button>
+        </div>
+    </section>
+
+    <!-- Name Modal -->
+    <div id="nameModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4 section">
+            <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Welcome to DevX Club!</h2>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">Let's personalize your learning experience. What's your name?</p>
+            <input type="text" id="nameInput" placeholder="Enter your name" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg mb-4 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="flex space-x-4">
+                <button id="saveName" class="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700">Save</button>
+                <button id="closeModal" class="flex-1 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white px-6 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-700">Skip</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="section">
+                <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">About DevX</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-4">👥</div>
+                        <h3 class="text-xl font-semibold mb-2">Community</h3>
+                        <p class="text-gray-600 dark:text-gray-400">A community for exploring software engineering and tech together</p>
+                    </div>
+                    <div class="card bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-4">💻</div>
+                        <h3 class="text-xl font-semibold mb-2">Learn by Doing</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Code, collaborate, and build real projects</p>
+                    </div>
+                    <div class="card bg-white dark:bg-gray-700 p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h3 class="text-xl font-semibold mb-2">Real-World Focus</h3>
+                        <p class="text-gray-600 dark:text-gray-400">Sessions cover concepts, tools, and practical applications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Software Systems Section -->
+    <section class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="section">
+                <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Software Systems</h2>
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 mb-8 card shadow-md">
+                        <h3 class="text-2xl font-semibold mb-4">What is a Software System?</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">A collection of programs, processes, and resources working together to solve problems.</p>
+                        <div class="bg-blue-50 dark:bg-blue-900 p-4 rounded-lg">
+                            <p class="font-semibold mb-2">Why Important?</p>
+                            <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
+                                <li>Improves efficiency</li>
+                                <li>Enables scalability</li>
+                                <li>Increases accessibility</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real-World Applications -->
+    <section class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="section">
+                <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Real-World Applications</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="card bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900 dark:to-blue-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">🚗 Transportation</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Uber, Bolt, airline reservation systems</p>
+                    </div>
+                    <div class="card bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">🏥 Healthcare</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Hospital management, eHealth apps</p>
+                    </div>
+                    <div class="card bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900 dark:to-yellow-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">💰 Finance</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Mobile money, online banking</p>
+                    </div>
+                    <div class="card bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900 dark:to-purple-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">📚 Education</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Moodle, Coursera</p>
+                    </div>
+                    <div class="card bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900 dark:to-red-800 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-2">🎬 Entertainment</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Netflix, Spotify, gaming systems</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SDLC Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="section">
+                <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Software Development Life Cycle (SDLC)</h2>
+                <div class="max-w-5xl mx-auto">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-8 mb-8 card">
+                        <p class="text-lg mb-6 text-gray-600 dark:text-gray-400">A structured process for building software systems</p>
+                        <div class="grid md:grid-cols-7 gap-4 mb-8">
+                            <div class="text-center">
+                                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold">1</div>
+                                <p class="text-sm font-semibold">Planning</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold">2</div>
+                                <p class="text-sm font-semibold">Analysis</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold">3</div>
+                                <p class="text-sm font-semibold">Design</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold">4</div>
+                                <p class="text-sm font-semibold">Implementation</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold">5</div>
+                                <p class="text-sm font-semibold">Testing</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold">6</div>
+                                <p class="text-sm font-semibold">Deployment</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-blue-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-2 font-bold">7</div>
+                                <p class="text-sm font-semibold">Maintenance</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900 p-6 rounded-lg">
+                            <h4 class="font-semibold mb-3">Popular SDLC Models:</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <p class="font-medium text-blue-600 dark:text-blue-400">• Waterfall</p>
+                                    <p class="font-medium text-blue-600 dark:text-blue-400">• V-Model</p>
+                                    <p class="font-medium text-blue-600 dark:text-blue-400">• Iterative</p>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-blue-600 dark:text-blue-400">• Incremental</p>
+                                    <p class="font-medium text-blue-600 dark:text-blue-400">• Agile ⭐</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agile Methods -->
+    <section class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="section">
+                <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Agile Methods</h2>
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="card bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4 text-red-600 dark:text-red-400">❌ Traditional (Waterfall)</h3>
+                            <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                                <li>• Sequential phases</li>
+                                <li>• Limited flexibility</li>
+                                <li>• Late customer feedback</li>
+                                <li>• Longer delivery time</li>
+                            </ul>
+                        </div>
+                        <div class="card bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900 dark:to-green-800 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4 text-green-700 dark:text-green-300">✓ Agile</h3>
+                            <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                                <li>• Iterative development</li>
+                                <li>• High adaptability</li>
+                                <li>• Continuous collaboration</li>
+                                <li>• Quick delivery</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-8 card">
+                        <h3 class="text-2xl font-semibold mb-6">Agile Frameworks</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="border-l-4 border-blue-600 pl-4">
+                                <h4 class="font-semibold text-lg mb-2">Scrum</h4>
+                                <p class="text-gray-600 dark:text-gray-400">Sprint-based development with defined roles (Product Owner, Scrum Master, Team)</p>
+                            </div>
+                            <div class="border-l-4 border-blue-600 pl-4">
+                                <h4 class="font-semibold text-lg mb-2">Kanban</h4>
+                                <p class="text-gray-600 dark:text-gray-400">Visual board system for workflow management and continuous delivery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Git & GitHub -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="section">
+                <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Version Control & Git/GitHub</h2>
+                <div class="max-w-5xl mx-auto">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-8 mb-8 card">
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">🔧 Git</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Local version control tool that tracks changes in your code</p>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-4">☁️ GitHub</h3>
+                                <p class="text-gray-600 dark:text-gray-400">Cloud platform for sharing, collaborating, and managing projects</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900 p-6 rounded-lg mb-6">
+                            <h4 class="font-semibold mb-3">Key Benefits:</h4>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-3xl mb-2">↩️</div>
+                                    <p class="font-medium">Rollback Changes</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-3xl mb-2">👥</div>
+                                    <p class="font-medium">Team Collaboration</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-3xl mb-2">🌍</div>
+                                    <p class="font-medium">Open Source</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="command-box rounded-lg p-6 text-white">
+                            <h4 class="font-semibold mb-4 text-lg">Essential Git Commands</h4>
+                            <div class="space-y-3 font-mono text-sm">
+                                <div class="flex items-center justify-between bg-black bg-opacity-30 p-3 rounded">
+                                    <span>git init</span>
+                                    <span class="text-blue-200 text-xs">Start a repo</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-black bg-opacity-30 p-3 rounded">
+                                    <span>git add .</span>
+                                    <span class="text-blue-200 text-xs">Stage changes</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-black bg-opacity-30 p-3 rounded">
+                                    <span>git commit -m 'Message'</span>
+                                    <span class="text-blue-200 text-xs">Save snapshot</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-black bg-opacity-30 p-3 rounded">
+                                    <span>git push</span>
+                                    <span class="text-blue-200 text-xs">Upload to GitHub</span>
+                                </div>
+                            </div>
+                            <p class="mt-4 text-sm text-blue-200">💡 Tip: We'll practice these together in future sessions!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements & Modeling -->
+    <section class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="section">
+                <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Requirements & Modeling</h2>
+                <div class="max-w-5xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-8 mb-8">
+                        <div class="card bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4">Requirements Gathering</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Understanding user needs and expectations</p>
+                            <div class="space-y-2">
+                                <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded">
+                                    <p class="font-semibold text-sm">Functional</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">What the system does</p>
+                                </div>
+                                <div class="bg-green-100 dark:bg-green-900 p-3 rounded">
+                                    <p class="font-semibold text-sm">Non-Functional</p>
+                                    <p class="text-xs text-gray-600 dark:text-gray-400">Performance, usability</p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-sm font-semibold mb-2">Gathering Methods:</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">Interviews • Surveys • Observation • Brainstorming</p>
+                            </div>
+                        </div>
+                        <div class="card bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4">Modeling Software Systems</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-4">Visualizing and clarifying requirements</p>
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <span class="font-semibold mr-2">UML:</span>
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Use case, class, activity diagrams</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="font-semibold mr-2">ERD:</span>
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Entity-Relationship Diagrams for databases</span>
+                                </div>
+                                <div class="flex items-start">
+                                    <span class="font-semibold mr-2">DFD:</span>
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Data Flow Diagrams for processes</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 bg-blue-50 dark:bg-blue-900 p-3 rounded">
+                                <p class="text-sm">Bridges the gap between users and developers</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Diagram Examples -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="card bg-white dark:bg-gray-700 p-6 rounded-lg border-2 border-blue-200 dark:border-blue-800">
+                            <h4 class="font-semibold mb-3 text-center">UML Use Case</h4>
+                            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded text-center text-sm">
+                                <p>User → Login → System verifies → Dashboard</p>
+                            </div>
+                        </div>
+                        <div class="card bg-white dark:bg-gray-700 p-6 rounded-lg border-2 border-green-200 dark:border-green-800">
+                            <h4 class="font-semibold mb-3 text-center">ERD Example</h4>
+                            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded text-center text-sm">
+                                <p>Student → Enrolls → Course</p>
+                            </div>
+                        </div>
+                        <div class="card bg-white dark:bg-gray-700 p-6 rounded-lg border-2 border-purple-200 dark:border-purple-800">
+                            <h4 class="font-semibold mb-3 text-center">DFD Example</h4>
+                            <div class="bg-gray-50 dark:bg-gray-600 p-4 rounded-lg text-center text-sm">
+                                <p>Input → Process → Output</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="py-16 bg-gradient-to-br from-blue-600 to-blue-800 text-white">
+        <div class="container mx-auto px-6">
+            <div class="section text-center">
+                <h2 class="text-4xl font-bold mb-8">Next Steps 🚀</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-white bg-opacity-10 p-6 rounded-lg card backdrop-blur-sm">
+                            <div class="text-4xl mb-3">💻</div>
+                            <h3 class="font-semibold mb-2">Practical Sessions</h3>
+                            <p class="text-sm text-blue-100">Agile practice & GitHub collaboration</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-6 rounded-lg card backdrop-blur-sm">
+                            <div class="text-4xl mb-3">👥</div>
+                            <h3 class="font-semibold mb-2">Team Projects</h3>
+                            <p class="text-sm text-blue-100">Collaborative work coming this semester</p>
+                        </div>
+                        <div class="bg-white bg-opacity-10 p-6 rounded-lg card backdrop-blur-sm">
+                            <div class="text-4xl mb-3">🎯</div>
+                            <h3 class="font-semibold mb-2">Stay Engaged</h3>
+                            <p class="text-sm text-blue-100">Ask questions & explore together</p>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <p class="text-lg mb-4">Ready to start your journey?</p>
+                        <p class="text-sm text-blue-100">Clone this repo and learn Git/GitHub hands-on!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 dark:bg-black text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-400">DevX Club - Exploring Software Engineering Together</p>
+            <p class="text-sm text-gray-500 mt-2">Learn • Code • Collaborate • Build</p>
+        </div>
+    </footer>
+
+    <!-- Inline Theme Script - Must run before page renders -->
+    <script>
+        // Apply saved theme immediately to prevent flash
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!-- ========================================== -->
+<!-- 7. FAQ ACCORDION SECTION -->
+<!-- Place this before the Footer -->
+<!-- ========================================== -->
+<section class="py-16 bg-gray-100 dark:bg-gray-900">
+    <div class="container mx-auto px-6">
+        <div class="section">
+            <h2 class="text-4xl font-bold text-center mb-12 text-blue-600 dark:text-blue-400">Frequently Asked Questions</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                        <span class="font-semibold">How do I join DevX Club?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-gray-600 dark:text-gray-400">
+                        <p>Joining DevX Club is easy! Simply attend one of our introductory sessions or reach out to any current member. We welcome students of all skill levels who are passionate about software development.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                        <span class="font-semibold">Do I need prior programming experience?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-gray-600 dark:text-gray-400">
+                        <p>No prior experience is required! We have members at all levels, from complete beginners to advanced developers. Our sessions are designed to accommodate everyone, and we encourage peer learning and mentorship.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                        <span class="font-semibold">When are the club meetings?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-gray-600 dark:text-gray-400">
+                        <p>We typically meet twice a week - Wednesdays for workshops and Fridays for project collaborations. Special events and hackathons are announced in advance. Check our events calendar for the most up-to-date schedule.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                        <span class="font-semibold">What technologies will I learn?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-gray-600 dark:text-gray-400">
+                        <p>We cover a wide range of technologies including Git/GitHub, web development (HTML, CSS, JavaScript, React), mobile development, databases, Agile methodologies, and more. Our curriculum adapts based on member interests and industry trends.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                        <span class="font-semibold">Can I work on my own projects?</span>
+                        <svg class="w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 pb-6 text-gray-600 dark:text-gray-400">
+                        <p>Absolutely! We encourage members to work on personal projects. You'll have access to mentorship, peer feedback, and collaborative sessions where you can get help or showcase your work to the community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JavaScript for FAQ Accordion -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('svg');
+                
+                // Toggle current answer
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+    });
+</script>
